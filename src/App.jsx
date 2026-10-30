@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   PieChart as RechartsPieChart,
   Pie,
@@ -9,7 +9,10 @@ import {
 } from "recharts";
 import "./App.css";
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
   const [title, setTitle] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -18,6 +21,9 @@ function App() {
   const [editingId, setEditingId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [submittedSearch, setSubmittedSearch] = useState("");
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
   function resetForm() {
     setEditingId(null);
     setTitle("");
@@ -43,9 +49,9 @@ function App() {
     setTasks([...tasks, newTask]);
     resetForm();
   }
-
   function deleteTask(id) {
     setTasks(tasks.filter(task => task.id !== id));
+
     if (editingId === id) {
       resetForm();
     }
@@ -100,10 +106,9 @@ function App() {
     if (!task.endDate || task.status === "Done") {
       return false;
     }
-    const endDate = new Date(task.endDate + "T00:00:00")
+    const endDate = new Date(task.endDate + "T00:00:00");
     return endDate < today;
   }).length;
-
   const filteredTasks = tasks.filter(task =>
     task.title
       .toLowerCase()
