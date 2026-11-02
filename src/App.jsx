@@ -220,7 +220,7 @@ function App() {
         </select>
         <button type="submit">Ajouter</button>
         <button type="button" onClick={updateTask}>
-          Modifier
+          Enregistrer les modifications 
         </button>
       </form>
       <div className="overdue-card">

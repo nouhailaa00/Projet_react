@@ -215,46 +215,113 @@ h2 {
     height: 260px;
   }
 }
+
+/* ===== Tableau des tâches (sans scroll horizontal) ===== */
 .table-container {
   width: 100%;
-  overflow-x: auto;
   margin: 20px 0;
 }
 .tasks-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   background: white;
 }
 .tasks-table th,
 .tasks-table td {
-  padding: 12px;
+  padding: 10px 8px;
   border: 1px solid #e2e8f0;
   text-align: left;
+  font-size: 14px;
+  overflow-wrap: anywhere;
 }
 .tasks-table th {
   background: #1e293b;
   color: white;
-  white-space: nowrap;
 }
+.tasks-table th:nth-child(1) { width: 18%; }
+.tasks-table th:nth-child(2) { width: 13%; }
+.tasks-table th:nth-child(3) { width: 13%; }
+.tasks-table th:nth-child(4) { width: 16%; }
+.tasks-table th:nth-child(5) { width: 15%; }
+.tasks-table th:nth-child(6) { width: 25%; }
 .tasks-table tbody tr:hover {
   background: #f1f5f9;
 }
 .tasks-table select {
-  padding: 8px;
+  width: 100%;
+  padding: 8px 4px;
   border-radius: 6px;
   border: 1px solid #cbd5e1;
-}
-.table-actions {
-  white-space: nowrap;
+  font-size: 13px;
 }
 .table-actions button {
-  margin: 3px;
+  margin: 3px 6px 3px 0;
+  padding: 8px 10px;
+  font-size: 13px;
 }
 @media (max-width: 768px) {
+  .tasks-table,
+  .tasks-table tbody,
+  .tasks-table tr,
+  .tasks-table td {
+    display: block;
+    width: 100%;
+  }
   .tasks-table {
-    min-width: 850px;
+    background: transparent;
+  }
+  .tasks-table thead {
+    display: none;
+  }
+  .tasks-table tr {
+    margin-bottom: 15px;
+    padding: 14px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-left: 5px solid #2563eb;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+  }
+  .tasks-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 7px 0;
+    border: none;
+    text-align: right;
+    font-size: 14px;
+  }
+  .tasks-table td::before {
+    flex-shrink: 0;
+    font-weight: bold;
+    color: #334155;
+    text-align: left;
+  }
+  .tasks-table td:nth-child(1)::before { content: "Nom de la tâche"; }
+  .tasks-table td:nth-child(2)::before { content: "Date de début"; }
+  .tasks-table td:nth-child(3)::before { content: "Date de fin"; }
+  .tasks-table td:nth-child(4)::before { content: "Ressources"; }
+  .tasks-table td:nth-child(5)::before { content: "Statut"; }
+  .tasks-table td:nth-child(5) select {
+    width: 60%;
+  }
+  .tasks-table td:nth-child(6) {
+    display: block;
+    margin-top: 6px;
+    padding-top: 12px;
+    border-top: 1px solid #e2e8f0;
+    text-align: left;
+  }
+  .table-actions button {
+    width: calc(50% - 6px);
+    margin: 3px 6px 3px 0;
+    padding: 10px;
+    font-size: 13px;
   }
 }
+
 .overdue-card {
   display: flex;
   justify-content: space-between;
@@ -320,4 +387,3 @@ h2 {
     flex-basis: 100%;
   }
 }
-
